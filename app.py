@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import joblib
+from sklearn.neighbors import NearestNeighbors
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 
@@ -352,8 +352,8 @@ def main():
             with st.spinner("Finding similar songs..."):
                 # Define model
                 X = df[features]
-                knn = joblib.load('knn_model.joblib')
-
+                knn = NearestNeighbors(n_neighbors=11)
+                knn.fit(X)
                 # Find the selected song in the dataset
                 record = df[df["track_name"] == song]
                 record_features = record[features]
